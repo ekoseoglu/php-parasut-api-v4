@@ -1,0 +1,21 @@
+{
+    "name": "inpinos/php-parasut-api-v4",
+    "description": "Parasut API Version 4",
+    "type": "library",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Esat Köseoğlu",
+            "email": "ekoseoglu22@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "ParasutAPI\\": "src"
+        }
+    },
+    "require": {
+        "php": ">=5.6"
+    }
+}
