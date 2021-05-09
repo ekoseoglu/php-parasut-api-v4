@@ -138,9 +138,8 @@ class Authorization extends Request
 	/**
 	 * @param $path
 	 * @param null $params
-	 * @param string $method
-	 * @return mixed
-	 * @throws \Parasut\API\Exception
+	 * @param $method
+	 * @return array|\stdClass
 	 */
 	public function request($path, $params = null, $method)
 	{

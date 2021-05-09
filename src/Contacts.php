@@ -37,6 +37,24 @@ class Contacts
 		);
 	}
 
+	public function search($data = [])
+	{
+		$filter = null;
+		foreach ($data as $key => $value)
+		{
+			if (end($data) == $value)
+				$filter .= "filter[$key]=$value";
+			else
+				$filter .= "filter[$key]=$value&";
+		}
+
+		return $this->connector->request(
+			'contacts?'.$filter,
+			[],
+			'GET'
+		);
+	}
+
 	public function edit($id , $data = [])
 	{
 		return $this->connector->request(
