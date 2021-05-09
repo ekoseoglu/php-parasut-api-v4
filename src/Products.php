@@ -5,6 +5,10 @@ class Products
 {
 	public $connector;
 
+	/**
+	 * Products constructor.
+	 * @param Authorization $connector
+	 */
 	public function __construct(Authorization $connector)
 	{
 		$this->connector = $connector;
@@ -16,7 +20,20 @@ class Products
 	public function list_products()
 	{
 		return $this->connector->request(
-			'products',
+			"products",
+			[],
+			"GET"
+		);
+	}
+
+	/**
+	 * @param $product_id
+	 * @return array|\stdClass
+	 */
+	public function show($product_id)
+	{
+		return $this->connector->request(
+			"products/$product_id?include=inventory_levels,category",
 			[],
 			"GET"
 		);
@@ -38,7 +55,7 @@ class Products
 		}
 
 		return $this->connector->request(
-			'products?'.$filter,
+			"products?$filter",
 			[],
 			"GET"
 		);
@@ -51,47 +68,34 @@ class Products
 	public function create($data)
 	{
 		return $this->connector->request(
-			'products',
+			"products",
 			$data,
 			"POST"
 		);
 	}
 
 	/**
-	 * @param $id
-	 * @return array|\stdClass
-	 */
-	public function show($id)
-	{
-		return $this->connector->request(
-			'products/' . $id . '?include=inventory_levels,category',
-			[],
-			"GET"
-		);
-	}
-
-	/**
-	 * @param $id
+	 * @param $product_id
 	 * @param array $data
 	 * @return array|\stdClass
 	 */
-	public function edit($id, $data = [])
+	public function edit($product_id, $data = [])
 	{
 		return $this->connector->request(
-			'products/' . $id,
+			"products/$product_id",
 			$data,
 			"PUT"
 		);
 	}
 
 	/**
-	 * @param $id
+	 * @param $product_id
 	 * @return array|\stdClass
 	 */
-	public function delete($id)
+	public function delete($product_id)
 	{
 		return $this->connector->request(
-			'products/' . $id,
+			"products/$product_id",
 			[],
 			"DELETE"
 		);

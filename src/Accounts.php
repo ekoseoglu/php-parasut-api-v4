@@ -5,6 +5,10 @@ class Accounts
 {
 	public $connector;
 
+	/**
+	 * Accounts constructor.
+	 * @param Authorization $connector
+	 */
 	public function __construct(Authorization $connector)
 	{
 		$this->connector = $connector;
@@ -17,6 +21,19 @@ class Accounts
 	{
 		return $this->connector->request(
 			'accounts',
+			[],
+			"GET"
+		);
+	}
+
+	/**
+	 * @param $account_id
+	 * @return array|\stdClass
+	 */
+	public function show($account_id)
+	{
+		return $this->connector->request(
+			'accounts/' . $account_id,
 			[],
 			"GET"
 		);
@@ -54,19 +71,6 @@ class Accounts
 			'accounts',
 			$data,
 			"POST"
-		);
-	}
-
-	/**
-	 * @param $account_id
-	 * @return array|\stdClass
-	 */
-	public function show($account_id)
-	{
-		return $this->connector->request(
-			'accounts/' . $account_id,
-			[],
-			"GET"
 		);
 	}
 

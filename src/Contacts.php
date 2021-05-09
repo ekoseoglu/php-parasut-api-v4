@@ -5,71 +5,105 @@ class Contacts
 {
 	public $connector;
 
+	/**
+	 * Contacts constructor.
+	 * @param Authorization $connector
+	 */
 	public function __construct(Authorization $connector)
 	{
 		$this->connector = $connector;
 	}
 
-	public function index()
+	/**
+	 * Contact list
+	 * @return array|\stdClass
+	 */
+	public function list_contacts()
 	{
 		return $this->connector->request(
-			'contacts/',
+			"contacts/",
 			[],
-			'GET'
+			"GET"
 		);
 	}
 
-	public function create($data)
+	/**
+	 * Show contact
+	 * @param $contact_id
+	 * @return array|\stdClass
+	 */
+	public function show($contact_id)
 	{
 		return $this->connector->request(
-			'contacts',
-			$data,
-			'POST'
+			"contacts/$contact_id",
+			[],
+			"GET"
 		);
 	}
 
-	public function show($id , $data = [])
-	{
-		return $this->connector->request(
-			'contacts/' . $id,
-			$data,
-			'GET'
-		);
-	}
-
+	/**
+	 * Search contact with params
+	 * @param array $data
+	 * @return array|\stdClass
+	 */
 	public function search($data = [])
 	{
 		$filter = null;
 		foreach ($data as $key => $value)
 		{
 			if (end($data) == $value)
-				$filter .= "filter[$key]=$value";
+				$filter .= "filter[$key]=".urlencode($value);
 			else
-				$filter .= "filter[$key]=$value&";
+				$filter .= "filter[$key]=".urlencode($value)."&";
 		}
 
 		return $this->connector->request(
-			'contacts?'.$filter,
+			"contacts?$filter",
 			[],
-			'GET'
+			"GET"
 		);
 	}
 
-	public function edit($id , $data = [])
+	/**
+	 * Create contact
+	 * @param $data
+	 * @return array|\stdClass
+	 */
+	public function create($data)
 	{
 		return $this->connector->request(
-			'contacts/' . $id,
+			"contacts",
 			$data,
-			'PUT'
+			"POST"
 		);
 	}
 
-	public function delete($id)
+	/**
+	 * Edit contact
+	 * @param $contact_id
+	 * @param array $data
+	 * @return array|\stdClass
+	 */
+	public function edit($contact_id , $data = [])
 	{
 		return $this->connector->request(
-			'contacts/' . $id,
+			"contacts/$contact_id",
+			$data,
+			"PUT"
+		);
+	}
+
+	/**
+	 * Delete contact
+	 * @param $contact_id
+	 * @return array|\stdClass
+	 */
+	public function delete($contact_id)
+	{
+		return $this->connector->request(
+			"contacts/$contact_id",
 			[],
-			'DELETE'
+			"DELETE"
 		);
 	}
 }

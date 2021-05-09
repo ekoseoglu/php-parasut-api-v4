@@ -5,6 +5,10 @@ class Invoices
 {
 	public $connector;
 
+	/**
+	 * Invoices constructor.
+	 * @param Authorization $connector
+	 */
 	public function __construct(Authorization $connector)
 	{
 		$this->connector = $connector;
@@ -13,10 +17,10 @@ class Invoices
 	/**
 	 * @return array|\stdClass
 	 */
-	public function list_invoice()
+	public function list_invoices()
 	{
 		return $this->connector->request(
-			'sales_invoices/',
+			"sales_invoices/",
 			[],
 			'GET'
 		);
@@ -32,26 +36,26 @@ class Invoices
 		foreach ($data as $key => $value)
 		{
 			if (end($data) == $value)
-				$filter .= "filter[$key]=$value";
+				$filter .= "filter[$key]=".urlencode($value);
 			else
-				$filter .= "filter[$key]=$value&";
+				$filter .= "filter[$key]=".urlencode($value)."&";
 		}
 
 		return $this->connector->request(
-			'sales_invoices?'.$filter,
+			"sales_invoices?$filter",
 			[],
 			'GET'
 		);
 	}
 
 	/**
-	 * @param $id
+	 * @param $invoice_id
 	 * @return array|\stdClass
 	 */
-	public function show($id)
+	public function show($invoice_id)
 	{
 		return $this->connector->request(
-			'sales_invoices/'.$id.'?include=active_e_document,contact',
+			"sales_invoices/$invoice_id?include=active_e_document,contact",
 			[],
 			'GET'
 		);
@@ -64,61 +68,61 @@ class Invoices
 	public function create($data)
 	{
 		return $this->connector->request(
-			'sales_invoices?include=active_e_document',
+			"sales_invoices?include=active_e_document",
 			$data,
 			'POST'
 		);
 	}
 
 	/**
-	 * @param $id
+	 * @param $invoice_id
 	 * @param $data
 	 * @return array|\stdClass
 	 */
-	public function edit($id, $data)
+	public function edit($invoice_id, $data)
 	{
 		return $this->connector->request(
-			'sales_invoices/'.$id,
+			"sales_invoices/$invoice_id",
 			$data,
 			'POST'
 		);
 	}
 
 	/**
-	 * @param $id
+	 * @param $invoice_id
 	 * @return array|\stdClass
 	 */
-	public function delete($id)
+	public function delete($invoice_id)
 	{
 		return $this->connector->request(
-			'sales_invoices/'.$id,
+			"sales_invoices/$invoice_id",
 			[],
 			'DELETE'
 		);
 	}
 
 	/**
-	 * @param $id
+	 * @param $invoice_id
 	 * @return array|\stdClass
 	 */
-	public function cancel($id)
+	public function cancel($invoice_id)
 	{
 		return $this->connector->request(
-			'sales_invoices/'.$id.'/cancel',
+			"sales_invoices/$invoice_id/cancel",
 			[],
 			'DELETE'
 		);
 	}
 
 	/**
-	 * @param $id
+	 * @param $invoice_id
 	 * @param $data
 	 * @return array|\stdClass
 	 */
-	public function pay($id, $data)
+	public function pay($invoice_id, $data)
 	{
 		return $this->connector->request(
-			'sales_invoices/'.$id.'/payments',
+			"sales_invoices/$invoice_id/payments",
 			$data,
 			'POST'
 		);
@@ -131,32 +135,18 @@ class Invoices
 	public function check_vkn_type($vkn)
 	{
 		return $this->connector->request(
-			'e_invoice_inboxes?filter[vkn]='.$vkn,
+			"e_invoice_inboxes?filter[vkn]=$vkn",
 			[],
 			'GET'
 		);
 	}
 
 	/**
-	 * @param $id
+	 * @param $data
 	 * @return array|\stdClass
 	 */
-	public function create_e_archive($id)
+	public function create_e_archive($data)
 	{
-		$data = [
-			"data" => [
-				"type" => "e_archives",
-				"relationships" => [
-					"sales_invoice" => [
-						"data" => [
-							"id" => $id,
-							"type" => "sales_invoices"
-						]
-					]
-				]
-			]
-		];
-
 		return $this->connector->request(
 			'e_archives',
 			$data,
@@ -165,13 +155,13 @@ class Invoices
 	}
 
 	/**
-	 * @param $id
+	 * @param $e_archive_id
 	 * @return array|\stdClass
 	 */
-	public function show_e_archive($id)
+	public function show_e_archive($e_archive_id)
 	{
 		return $this->connector->request(
-			'e_archives/'.$id,
+			'e_archives/'.$e_archive_id,
 			[],
 			'GET'
 		);
@@ -179,13 +169,13 @@ class Invoices
 	}
 
 	/**
-	 * @param $id
+	 * @param $e_archive_id
 	 * @return array|\stdClass
 	 */
-	public function pdf_e_archive($id)
+	public function pdf_e_archive($e_archive_id)
 	{
 		return $this->connector->request(
-			"e_archives/$id/pdf",
+			"e_archives/$e_archive_id/pdf",
 			[],
 			'GET'
 		);
@@ -205,26 +195,65 @@ class Invoices
 	}
 
 	/**
-	 * @param $id
+	 * @param $e_invoice_id
 	 * @return array|\stdClass
 	 */
-	public function show_e_invoice($id)
+	public function show_e_invoice($e_invoice_id)
 	{
 		return $this->connector->request(
-			'e_invoices/'.$id,
+			'e_invoices/'.$e_invoice_id,
 			[],
 			"GET"
 		);
 	}
 
 	/**
-	 * @param $id
+	 * @param $e_invoice_id
 	 * @return array|\stdClass
 	 */
-	public function pdf_e_invoice($id)
+	public function pdf_e_invoice($e_invoice_id)
 	{
 		return $this->connector->request(
-			"e_invoices/$id/pdf",
+			"e_invoices/$e_invoice_id/pdf",
+			[],
+			"GET"
+		);
+	}
+
+	/**
+	 * @param $url
+	 * @param $path
+	 * @return bool
+	 */
+	public function upload_pdf($url, $path)
+	{
+		if (!function_exists("file_put_contents"))
+			return false;
+
+		if (!function_exists("file_get_contents"))
+			return false;
+
+		$getPDF = @file_get_contents($url);
+
+		if (!$getPDF)
+			return false;
+
+		$upload = @file_put_contents($path, $getPDF);
+
+		if (!$upload)
+			return false;
+
+		return true;
+	}
+
+	/**
+	 * @param $trackable_id
+	 * @return array|\stdClass
+	 */
+	public function trackable_jobs($trackable_id)
+	{
+		return $this->connector->request(
+			"trackable_jobs/$trackable_id",
 			[],
 			"GET"
 		);
