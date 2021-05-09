@@ -3,7 +3,7 @@
     "description": "Parasut API Version 4",
     "type": "library",
     "license": "MIT",
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "authors": [
         {
             "name": "Esat Köseoğlu",
