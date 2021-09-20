@@ -437,5 +437,3 @@ $editProduct = $products->edit($product_id, $productData);
 $product_id = 123456;
 $deleteProduct = $products->delete($product_id);
 ```
-
-V1
