@@ -16,7 +16,7 @@ try {
 		"username" => "X",
 		"password" => "X",
 		"redirect_uri" => "urn:ietf:wg:oauth:2.0:oob",
-		"company_id" => "XX"
+		"company_id" => "XXXX"
 	]);
 } catch (\Parasut\API\Exception $e) {
 	echo "Error code : " . $e->getCode()."<br>";
