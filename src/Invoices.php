@@ -15,12 +15,14 @@ class Invoices
 	}
 
 	/**
+	 * @param int $page
+	 * @param int $size
 	 * @return array|\stdClass
 	 */
-	public function list_invoices()
+	public function list_invoices($page = 1, $size = 25)
 	{
 		return $this->connector->request(
-			"sales_invoices/",
+			"sales_invoices/?page[number]=$page&page[size]=$size",
 			[],
 			'GET'
 		);

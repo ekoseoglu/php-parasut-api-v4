@@ -105,7 +105,7 @@ class Request
 		{
 			$return = new \stdClass();
 			$return->code = $responseCode;
-			$return->data = isset($responseData->data) ? $responseData->data : null;
+			$return->result = isset($responseData) ? $responseData : null;
 			return $return;
 		}
 		else

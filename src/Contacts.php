@@ -15,13 +15,14 @@ class Contacts
 	}
 
 	/**
-	 * Contact list
+	 * @param int $page
+	 * @param int $size
 	 * @return array|\stdClass
 	 */
-	public function list_contacts()
+	public function list_contacts($page = 1, $size = 25)
 	{
 		return $this->connector->request(
-			"contacts/",
+			"contacts?page[number]=$page&page[size]=$size",
 			[],
 			"GET"
 		);
