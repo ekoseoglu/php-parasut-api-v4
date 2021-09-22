@@ -28,6 +28,15 @@ class Contacts
 		);
 	}
 
+	public function count_contacts()
+	{
+		return $this->connector->request(
+			"contacts?page[number]=1&page[size]=1",
+			[],
+			"GET"
+		)->result->meta->total_count;
+	}
+
 	/**
 	 * Show contact
 	 * @param $contact_id

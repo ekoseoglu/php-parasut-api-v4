@@ -28,6 +28,24 @@ class Invoices
 		);
 	}
 
+	public function count_sales_invoices()
+	{
+		return $this->connector->request(
+			"sales_invoices/?page[size]=1",
+			[],
+			'GET'
+		)->result->meta->total_count;
+	}
+
+	public function list_e_invoices($page = 1, $size = 25)
+	{
+		return $this->connector->request(
+			"e_invoices/?page[number]=$page&page[size]=$size",
+			[],
+			'GET'
+		);
+	}
+
 	/**
 	 * @param array $data
 	 * @return array|\stdClass
