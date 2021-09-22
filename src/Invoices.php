@@ -46,6 +46,15 @@ class Invoices
 		);
 	}
 
+	public function count_e_invoices()
+    {
+        return $this->connector->request(
+            "e_invoices/?page[number]=1&page[size]=1",
+            [],
+            'GET'
+        )->result->meta->total_count;
+    }
+
 	/**
 	 * @param array $data
 	 * @return array|\stdClass
