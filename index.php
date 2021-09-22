@@ -11,12 +11,12 @@ require_once "src/Invoices.php";
 try {
 	$parasutAuthorization = new \Parasut\API\Authorization([
 		"development" => false, //development mode
-		"client_id" => "a6c74cc876fe40f3c1a3873a2d39b947d082b0811f465fd3b589cfb917d4deb2",
-		"client_secret" => "f7a5670f46978ba7722abe9144d644e0c06d059527449091874eb17b4d789c4c",
-		"username" => "admin@payreks.com",
-		"password" => "05372007042esaT?",
+		"client_id" => "X",
+		"client_secret" => "X",
+		"username" => "X",
+		"password" => "X",
 		"redirect_uri" => "urn:ietf:wg:oauth:2.0:oob",
-		"company_id" => "275851"
+		"company_id" => "X"
 	]);
 } catch (\Parasut\API\Exception $e) {
 	echo "Error code : " . $e->getCode()."<br>";
