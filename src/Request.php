@@ -179,6 +179,19 @@ class Request
 						$return->error_message = "Unprocessable Entity: ". $errorDetail;
 					}
 					break;
+				case '429':
+					if (isset($responseData->error))
+					{
+						$return->error_title = null;
+						$return->error_message = "Too many requests: ". $responseData->error;
+					}
+					elseif (isset($responseData->errors))
+					{
+						$return->error_title = isset($responseData->errors[0]->title) ? $responseData->errors[0]->title : null;
+						$errorDetail = isset($responseData->errors[0]->detail) ? $responseData->errors[0]->detail : null;
+						$return->error_message = "Too many requests: ". $errorDetail;
+					}
+					break;
 				default:
 					break;
 			}

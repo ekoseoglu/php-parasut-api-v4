@@ -15,15 +15,29 @@ class Products
 	}
 
 	/**
+	 * @param int $page
+	 * @param int $size
 	 * @return array|\stdClass
 	 */
-	public function list_products()
+	public function list_products($page = 1, $size = 25)
 	{
 		return $this->connector->request(
-			"products",
+			"products?page[number]=$page&page[size]=$size",
 			[],
 			"GET"
 		);
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function count_products()
+	{
+		return $this->connector->request(
+			"products?page[number]=1&page[size]=1",
+			[],
+			"GET"
+		)->result->meta->total_count;
 	}
 
 	/**

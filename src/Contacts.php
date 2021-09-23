@@ -28,6 +28,10 @@ class Contacts
 		);
 	}
 
+	/**
+	 * Contact total count
+	 * @return integer
+	 */
 	public function count_contacts()
 	{
 		return $this->connector->request(
