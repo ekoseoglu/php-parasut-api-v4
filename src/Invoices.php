@@ -101,6 +101,7 @@ class Invoices
 		);
 	}
 
+
 	/**
 	 * @param $data
 	 * @return array|\stdClass
