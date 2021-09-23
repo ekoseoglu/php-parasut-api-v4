@@ -241,9 +241,17 @@ $pdfEArchive = $invoices->pdf_e_archive($e_archive_id);
 //pdf e archive
 
 //create e invoice (vkn e-fatura sistemine kayıtlı değil ise e-fatura olarak kesilir)
+$vkn = 12345678912;
+$checkVKNType = $invoices->check_vkn_type($vkn);
+$eInvoiceAddress = $checkVKNType->result->data[0]->attributes->e_invoice_address;
+
 $eInvoiceData = [
 	"data" => [
 		"type" => "e_invoices",
+		"attributes" => [
+			'scenario' => 'basic', // basic veya commercial (temel veya ticari)
+			'to' => $eInvoiceAddress
+		],
 		"relationships" => [
 			"invoice" => [
 				"data" => [

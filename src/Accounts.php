@@ -15,12 +15,14 @@ class Accounts
 	}
 
 	/**
+	 * @param int $page
+	 * @param int $size
 	 * @return array|\stdClass
 	 */
-	public function list_accounts()
+	public function list_accounts($page = 1, $size = 25)
 	{
 		return $this->connector->request(
-			'accounts',
+			"accounts?page[number]=$page&page[size]=$size",
 			[],
 			"GET"
 		);

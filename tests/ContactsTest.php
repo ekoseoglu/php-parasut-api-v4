@@ -96,3 +96,4 @@ $editContact = $contacts->edit($contact_id, $editContactData);
 $contact_id = 123456; //integer
 $deleteContact = $contacts->delete($contact_id);
 //delete contact
+
