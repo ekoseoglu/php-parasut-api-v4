@@ -302,7 +302,7 @@ $vkn = 12345678912;
 $checkVKNType = $invoices->check_vkn_type($vkn);
 
 //VKN e-fatura sistemine kayıtlı değil
-if (empty($checkVKNType->data))
+if (empty($checkVKNType->result))
 {
     $eArchiveData = [
 	"data" => [
