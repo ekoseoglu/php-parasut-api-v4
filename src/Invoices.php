@@ -28,6 +28,9 @@ class Invoices
 		);
 	}
 
+	/**
+	 * @return mixed
+	 */
 	public function count_sales_invoices()
 	{
 		return $this->connector->request(
@@ -37,6 +40,11 @@ class Invoices
 		)->result->meta->total_count;
 	}
 
+	/**
+	 * @param int $page
+	 * @param int $size
+	 * @return array|\stdClass
+	 */
 	public function list_e_invoices($page = 1, $size = 25)
 	{
 		return $this->connector->request(
@@ -46,6 +54,9 @@ class Invoices
 		);
 	}
 
+	/**
+	 * @return mixed
+	 */
 	public function count_e_invoices()
     {
         return $this->connector->request(
