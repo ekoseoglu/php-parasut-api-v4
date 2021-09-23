@@ -84,7 +84,7 @@ class Invoices
 	public function show($invoice_id)
 	{
 		return $this->connector->request(
-			"sales_invoices/$invoice_id?include=active_e_document,contact",
+			"sales_invoices/$invoice_id?include=active_e_document,contact,details.product",
 			[],
 			'GET'
 		);
