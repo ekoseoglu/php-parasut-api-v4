@@ -322,9 +322,17 @@ if (empty($checkVKNType->data))
 //VKN e-fatura sistemine kayıtlı
 else
 {
+    $vkn = 12345678912;
+    $checkVKNType = $invoices->check_vkn_type($vkn);
+    $eInvoiceAddress = $checkVKNType->result->data[0]->attributes->e_invoice_address;
+
     $eInvoiceData = [
 	"data" => [
 		"type" => "e_invoices",
+		"attributes" => [
+        	'scenario' => 'basic', // basic veya commercial (temel veya ticari)
+        	'to' => $eInvoiceAddress
+        ],
 		"relationships" => [
 			"invoice" => [
 				"data" => [
