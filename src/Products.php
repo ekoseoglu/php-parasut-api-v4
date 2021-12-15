@@ -34,7 +34,7 @@ class Products
 	public function count_products()
 	{
 		return $this->connector->request(
-			"products?page[number]=1&page[size]=1",
+			"products?page[number]=1&page[size]=2",
 			[],
 			"GET"
 		)->result->meta->total_count;

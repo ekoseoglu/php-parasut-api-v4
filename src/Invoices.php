@@ -60,7 +60,7 @@ class Invoices
 	public function count_e_invoices()
     {
         return $this->connector->request(
-            "e_invoices/?page[number]=1&page[size]=1",
+            "e_invoices/?page[number]=1&page[size]=2",
             [],
             'GET'
         )->result->meta->total_count;

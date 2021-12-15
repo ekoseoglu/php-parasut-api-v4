@@ -35,7 +35,7 @@ class Contacts
 	public function count_contacts()
 	{
 		return $this->connector->request(
-			"contacts?page[number]=1&page[size]=1",
+			"contacts?page[number]=1&page[size]=2",
 			[],
 			"GET"
 		)->result->meta->total_count;
