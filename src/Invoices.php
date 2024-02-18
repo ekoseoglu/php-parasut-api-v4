@@ -125,7 +125,7 @@ class Invoices
 		return $this->connector->request(
 			"sales_invoices/$invoice_id",
 			$data,
-			'POST'
+			'PUT'
 		);
 	}
 
